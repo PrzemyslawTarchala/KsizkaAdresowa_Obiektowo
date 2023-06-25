@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.1">
+  <help_text>// Uncomment the following line to change the fontsize and font:
+fontsize=10
+// fontfamily=SansSerif //possible: SansSerif,Serif,Monospaced
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+// Welcome to UMLet!
+//
+// Double-click on elements to add them to the diagram, or to copy them
+// Edit elements by modifying the text in this panel
+// Hold Ctrl to select multiple elements
+// Use Ctrl+mouse to select via lasso
+//
+// Use +/- or Ctrl+mouse wheel to zoom
+// Drag a whole relation at its central square icon
+//
+// Press Ctrl+C to copy the whole diagram to the system clipboard (then just paste it to, eg, Word)
+// Edit the files in the "palettes" directory to create your own element palettes
+//
+// Select "Custom Elements &gt; New..." to create new element types
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+
+// This text will be stored with each diagram;  use it for notes.</help_text>
+  <zoom_level>11</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>0</x>
+      <y>935</y>
+      <w>198</w>
+      <h>132</h>
+    </coordinates>
+    <panel_attributes>Uzytkownika 
+--
+- id : Int
+- login : String 
+- haslo : String 
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1067</x>
+      <y>0</y>
+      <w>363</w>
+      <h>341</h>
+    </coordinates>
+    <panel_attributes>KsiazkaAdresowa 
+--
+- uzytkownikMenager : UzytkownikMenager
+- adresatMenager : AdresatMenager
+--
++ KsiazkaAdresowa()
++ rejestracjaUzytkownika () : void
++ wypiszWszystkichUzytkownikkow() : void 
++ logowanieUzytkownika() : void
++ wylogowanieUzytkownika() : void 
++ zmianaHaslaZalogowanegoUZytkownika() : void
++ dodajAdresata() : void
++ wyswietlWszystkichAdresatow() : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>330</x>
+      <y>407</y>
+      <w>407</w>
+      <h>297</h>
+    </coordinates>
+    <panel_attributes>UzytkownikMenager
+--
+- idZalogowanegoUzytkowinka : Int
+- uzytkownicy : vector &lt;Uzytkownik&gt;
+- plikZUzytkownikami: PlikZUzytkownikami
+--
+- podajDaneNowegoUzytkownika() : Uzytkownik
+- pobierzIdNowegoUzytkownika() : Int
+- czyIstniejeLogin() : bool
++ rejestracajUzytkownika() : void
++ wypiszWszystkichUzytkownikow() : void
++ wczytajUzytkownikowZPliku() : void
++ UzytkownikMenager()
++ logowanieUzytkownika() : void 
++ wylogowanieUzytkownika() : void
++ zmianaHaslaZalogowanegoUzytkownika() : void 
+
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>330</x>
+      <y>935</y>
+      <w>407</w>
+      <h>231</h>
+    </coordinates>
+    <panel_attributes>PlikZUzytkownikami
+--
+- nazwaPlikuZUzytkownikami : String
+--
+- zamienDaneUzytkownikaNaLinieZDanymiOddzielonaPionowymiKreskami() : string
+- pobierzDaneUzytkownika() : Uzytkownik
++ PlikZUzytkownikami()
++ dopiszUzytkownikaDoPliku() : void
++ wczytajUzytkownikowZPliku() : vector &lt;uzytkownicy&gt;
++ zapiszWszystkichUzytkownikowDoPliku() : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1056</x>
+      <y>748</y>
+      <w>374</w>
+      <h>121</h>
+    </coordinates>
+    <panel_attributes>MetodyPomocniczne
+--
++ konwerjsaIntNaString() : string 
++ wczytajLinie() : string 
++ czyPlikJestPusty() : bool
++ konwersjaStringNaInt() : Int
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1694</x>
+      <y>407</y>
+      <w>396</w>
+      <h>275</h>
+    </coordinates>
+    <panel_attributes>AdresatMenager
+--
+- plikZAdresatami : PlikZAdresatami
+- adresaci :  &lt;vactor&gt; Adresaci
+- idZalogowanegoUzytkownika : Int
+--
+- pobierzIdNowegoAdresata() : int
+- podajDaneNowegoAdresata() : Adresat
+- wyswietlDaneAdresata() : void
++ AdresatMenager()
++ dodajAdresata() : void
++ wyswietlWszystkichAdresatow() : void 
++ wczytajAdresatowZalogowanegoUzytkownikaZPliku() : void
++ wylogowanie() : void
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>517</x>
+      <y>143</y>
+      <w>572</w>
+      <h>286</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.&gt;
+&lt;&lt;someStereotype&gt;&gt;
+fg=MAGENTA</panel_attributes>
+    <additional_attributes>10.0;240.0;180.0;20.0;500.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>726</x>
+      <y>803</y>
+      <w>352</w>
+      <h>253</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;include&gt;&gt;
+fg=MAGENTA</panel_attributes>
+    <additional_attributes>300.0;10.0;10.0;210.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>506</x>
+      <y>693</y>
+      <w>77</w>
+      <h>264</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;include&gt;&gt;
+fg=MAGENTA</panel_attributes>
+    <additional_attributes>10.0;220.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>187</x>
+      <y>990</y>
+      <w>165</w>
+      <h>44</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;include&gt;&gt;
+fg=MAGENTA</panel_attributes>
+    <additional_attributes>10.0;20.0;130.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1705</x>
+      <y>957</y>
+      <w>396</w>
+      <h>275</h>
+    </coordinates>
+    <panel_attributes>PlikZAdresatami
+--
+- nazwaPlikuZAdresatami : string 
+--
++ dopiszAdresataDoPLiku() : void
+- zamienDaneAdresataNaLinieZDanymiOddzielonymiPionowymiKreskami() : string
++ wczytajAdresatowZalogowanegoUzytkownikaZPliku() : vector &lt;Adresat&gt;
+- pobierzIdUzytkownikaZDanychOddzielonychPionowymiKreskami() : Int
+- pobierzIdAdresataZDanychOddzielonychPionowymiKreskami() : Int
+- pobierzDaneAdresata() : Adresat
+- pobierzLiczbe(): string 
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2266</x>
+      <y>770</y>
+      <w>198</w>
+      <h>132</h>
+    </coordinates>
+    <panel_attributes>Adresat 
+--
+- id : Int
+- idUzytkownika : Int
+- imie : string
+- nazwisko : string 
+- numerTelefonu : string
+- email : string 
+- adres : string </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2090</x>
+      <y>891</y>
+      <w>297</w>
+      <h>231</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;include&gt;&gt;
+bg=BLUE
+fg=BLUE</panel_attributes>
+    <additional_attributes>250.0;10.0;10.0;190.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1881</x>
+      <y>671</y>
+      <w>33</w>
+      <h>308</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+
+bg=BLUE
+fg=BLUE</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;260.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1419</x>
+      <y>803</y>
+      <w>308</w>
+      <h>308</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;include&gt;&gt;
+bg=BLUE
+fg=BLUE</panel_attributes>
+    <additional_attributes>10.0;10.0;260.0;260.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1419</x>
+      <y>154</y>
+      <w>495</w>
+      <h>275</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.&gt;
+&lt;&lt;include&gt;&gt;
+bg=ORANGE
+fg=BLUE</panel_attributes>
+    <additional_attributes>430.0;230.0;280.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+</diagram>
