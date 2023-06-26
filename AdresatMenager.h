@@ -19,7 +19,9 @@ class AdresatMenager{
     void wyswietlDaneAdresata(Adresat adresat);
 
 public:
-    AdresatMenager();
+    AdresatMenager(string nazwaPlikuZAdresatami) : plikZAdresatami(nazwaPlikuZAdresatami){
+        idZalogowanegoUzytkownika = 0;
+    };
     void dodajAdresata ();
     void wyswietlWszystkichAdresatow();
     void wczytajAdresatowZalogowanegoUzytkownikaZPliku();

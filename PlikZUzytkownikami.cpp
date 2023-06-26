@@ -60,7 +60,7 @@ Uzytkownik PlikZUzytkownikami::pobierzDaneUzytkownika(string daneJednegoUzytkown
     string pojedynczaDanaUzytkownika = "";
     int numerPojedynczejDanejUzytkownika = 1;
 
-    for (int pozycjaZnaku = 0; pozycjaZnaku < daneJednegoUzytkownikaOddzielonePionowymiKreskami.length(); pozycjaZnaku++)
+    for (size_t pozycjaZnaku = 0; pozycjaZnaku < daneJednegoUzytkownikaOddzielonePionowymiKreskami.length(); pozycjaZnaku++)
     {
         if (daneJednegoUzytkownikaOddzielonePionowymiKreskami[pozycjaZnaku] != '|')
         {
@@ -95,7 +95,7 @@ void PlikZUzytkownikami::zapiszWszystkichUzytkownikowDoPliku(vector <Uzytkownik>
 
     plikTekstowy.open(nazwaPlikuZUzytkownikami.c_str(), ios::out);
 
-    if (plikTekstowy.good() == true)
+    if (plikTekstowy.good())
     {
         for (vector <Uzytkownik>::iterator itr = uzytkownicy.begin(); itr != uzytkownicy.end(); itr++)
         {

@@ -21,7 +21,7 @@ Uzytkownik UzytkownikMenager::podajDaneNowegoUzytkownika(){
     {
         cout << "Podaj login: ";
         uzytkownik.ustawLogin(MetodyPomocnicze::wczytajLinie());
-    } while (czyIstniejeLogin(uzytkownik.pobierzLogin()) == true);
+    } while (czyIstniejeLogin(uzytkownik.pobierzLogin()));
 
     cout << "Podaj haslo: ";
     uzytkownik.ustawHaslo(MetodyPomocnicze::wczytajLinie());
@@ -30,7 +30,7 @@ Uzytkownik UzytkownikMenager::podajDaneNowegoUzytkownika(){
 }
 
 int UzytkownikMenager::pobierzIdNowegoUzytkownika(){
-    if (uzytkownicy.empty() == true)
+    if (uzytkownicy.empty())
         return 1;
     else
         return uzytkownicy.back().pobierzId() + 1;
@@ -100,17 +100,17 @@ void UzytkownikMenager::logowanieUzytkownika(){
                         cout << endl << "Zalogowales sie." << endl << endl;
                         system("pause");
                         idZalogowanegoUzytkownika = uzytkownicy[i].pobierzId();
-                        return 0; //SPRAWDZ EXIT
+                        return;
                     }
                 }
                 cout << "Wprowadzono 3 razy bledne haslo." << endl;
                 system("pause");
-                return 0;
+                return;
             }
         }
         cout << "Nie ma uzytkownika z takim loginem" << endl << endl;
         system("pause");
-        return 0;
+        return;
     }
     else{
         cout << "Musisz sie najpierw wylogowac!" << endl;

@@ -29,3 +29,13 @@ int MetodyPomocnicze::konwersjaStringNaInt(string liczba){
     iss >> liczbaInt;
     return liczbaInt;
 }
+
+string MetodyPomocnicze::pobierzLiczbe(string tekst, int pozycjaZnaku){
+    string liczba = "";
+    while(isdigit(tekst[pozycjaZnaku]))
+    {
+        liczba += tekst[pozycjaZnaku];
+        pozycjaZnaku ++;
+    }
+    return liczba;
+}

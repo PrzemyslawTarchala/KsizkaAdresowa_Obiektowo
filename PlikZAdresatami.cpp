@@ -1,25 +1,20 @@
 #include "PlikZAdresatami.h"
 
-PlikZAdresatami::PlikZAdresatami(){
-    nazwaPlikuZAdresatami = "Adresaci.txt";
-}
-
 void PlikZAdresatami::dopiszAdresataDoPliku(Adresat adresat){
 
     string liniaZDanymiAdresata = "";
     fstream plikTekstowy;
     plikTekstowy.open(nazwaPlikuZAdresatami.c_str(), ios::out | ios::app);
 
-    if (plikTekstowy.good() == true)
+    if (plikTekstowy.good())
     {
         liniaZDanymiAdresata = zamienDaneAdresataNaLinieZDanymiOddzielonymiPionowymiKreskami(adresat);
+        ++ idOstatniegoAdresata;
 
-        if (MetodyPomocnicze::czyPlikJestPusty(plikTekstowy) == true)
-        {
+        if (MetodyPomocnicze::czyPlikJestPusty(plikTekstowy)){
             plikTekstowy << liniaZDanymiAdresata;
         }
-        else
-        {
+        else{
             plikTekstowy << endl << liniaZDanymiAdresata;
         }
     }
@@ -52,13 +47,12 @@ vector <Adresat> PlikZAdresatami::wczytajAdresatowZalogowanegoUzytkownikaZPliku(
 
     vector <Adresat> adresaci;
 
-    int idOstatniegoAdresata = 0;
     string daneJednegoAdresataOddzielonePionowymiKreskami = "";
     string daneOstaniegoAdresataWPliku = "";
     fstream plikTekstowy;
     plikTekstowy.open(nazwaPlikuZAdresatami.c_str(), ios::in);
 
-    if (plikTekstowy.good() == true)
+    if (plikTekstowy.good())
     {
         while (getline(plikTekstowy, daneJednegoAdresataOddzielonePionowymiKreskami))
         {
@@ -70,13 +64,13 @@ vector <Adresat> PlikZAdresatami::wczytajAdresatowZalogowanegoUzytkownikaZPliku(
         }
         daneOstaniegoAdresataWPliku = daneJednegoAdresataOddzielonePionowymiKreskami;
     }
-    return adresaci;
     plikTekstowy.close();
+    return adresaci;
 }
 
 int PlikZAdresatami::pobierzIdUzytkownikaZDanychOddzielonychPionowymiKreskami(string daneJednegoAdresataOddzielonePionowymiKreskami){
     int pozycjaRozpoczeciaIdUzytkownika = daneJednegoAdresataOddzielonePionowymiKreskami.find_first_of('|') + 1;
-    int idUzytkownika = MetodyPomocnicze::konwersjaStringNaInt(pobierzLiczbe(daneJednegoAdresataOddzielonePionowymiKreskami, pozycjaRozpoczeciaIdUzytkownika));
+    int idUzytkownika = MetodyPomocnicze::konwersjaStringNaInt(MetodyPomocnicze::pobierzLiczbe(daneJednegoAdresataOddzielonePionowymiKreskami, pozycjaRozpoczeciaIdUzytkownika));
 
     return idUzytkownika;
 }
@@ -84,7 +78,7 @@ int PlikZAdresatami::pobierzIdUzytkownikaZDanychOddzielonychPionowymiKreskami(st
 int PlikZAdresatami::pobierzIdAdresataZDanychOddzielonychPionowymiKreskami(string daneJednegoAdresataOddzielonePionowymiKreskami)
 {
     int pozycjaRozpoczeciaIdAdresata = 0;
-    int idAdresata = MetodyPomocnicze::konwersjaStringNaInt(pobierzLiczbe(daneJednegoAdresataOddzielonePionowymiKreskami, pozycjaRozpoczeciaIdAdresata));
+    int idAdresata = MetodyPomocnicze::konwersjaStringNaInt(MetodyPomocnicze::pobierzLiczbe(daneJednegoAdresataOddzielonePionowymiKreskami, pozycjaRozpoczeciaIdAdresata));
     return idAdresata;
 }
 
@@ -93,7 +87,7 @@ Adresat PlikZAdresatami::pobierzDaneAdresata(string daneAdresataOddzielonePionow
     string pojedynczaDanaAdresata = "";
     int numerPojedynczejDanejAdresata = 1;
 
-    for (int pozycjaZnaku = 0; pozycjaZnaku < daneAdresataOddzielonePionowymiKreskami.length(); pozycjaZnaku++)
+    for (size_t pozycjaZnaku = 0; pozycjaZnaku < daneAdresataOddzielonePionowymiKreskami.length(); pozycjaZnaku++)
     {
         if (daneAdresataOddzielonePionowymiKreskami[pozycjaZnaku] != '|')
         {
@@ -132,12 +126,51 @@ Adresat PlikZAdresatami::pobierzDaneAdresata(string daneAdresataOddzielonePionow
     return adresat;
 }
 
-string PlikZAdresatami::pobierzLiczbe(string tekst, int pozycjaZnaku){
+void PlikZAdresatami::ustawIdOstatniegoAdresata(){
+
+    int pozycjaZnaku = 0;
+    string lastLine;
+    fstream plikTekstowy;
+    plikTekstowy.open(nazwaPlikuZAdresatami.c_str(), ios::in);
+
+    //Szybki test -> z jakiego popularnego polskiego animowanego serialu pochodzi ten cytat:
+    //   ,,Zgadza sie - ukradlem, ale tylko glupi by nie skorzystal."
+
+    if(plikTekstowy.is_open()) {
+        plikTekstowy.seekg(-1,ios_base::end);                // go to one spot before the EOF
+
+        bool keepLooping = true;
+        while(keepLooping) {
+            char ch;
+            plikTekstowy.get(ch);                            // Get current byte's data
+
+            if((int)plikTekstowy.tellg() <= 1) {             // If the data was at or before the 0th byte
+                plikTekstowy.seekg(0);                       // The first line is the last line
+                keepLooping = false;                         // So stop there
+            }
+            else if(ch == '\n') {                            // If the data was a newline
+                keepLooping = false;                         // Stop at the current position.
+            }
+            else {                                           // If the data was neither a newline nor at the 0 byte
+                plikTekstowy.seekg(-2,ios_base::cur);        // Move to the front of that data, then to the front of the data before it
+            }
+        }
+
+        getline(plikTekstowy,lastLine);                      // Read the current line
+        plikTekstowy.close();
+    }
+
     string liczba = "";
-    while(isdigit(tekst[pozycjaZnaku]) == true)
+    while(isdigit(lastLine[pozycjaZnaku]))                   //Rozwiazanie pozwala na "wczytanie" ostatniej linii zamiast przechodzic po calym pilku od "gory"
     {
-        liczba += tekst[pozycjaZnaku];
+        liczba += lastLine[pozycjaZnaku];
         pozycjaZnaku ++;
     }
-    return liczba;
+    idOstatniegoAdresata = MetodyPomocnicze::konwersjaStringNaInt(liczba);   //zwraca ID ostatniego uzytkownika
+}
+
+//getter
+
+int PlikZAdresatami::pobierzIdOstatniegoAdresata(){
+    return idOstatniegoAdresata;
 }

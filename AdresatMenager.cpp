@@ -1,9 +1,5 @@
 #include "AdresatMenager.h"
 
-AdresatMenager::AdresatMenager(){
-    idZalogowanegoUzytkownika = 0;
-}
-
 void AdresatMenager::dodajAdresata(){
 
     Adresat adresat;
@@ -49,10 +45,7 @@ Adresat AdresatMenager::podajDaneNowegoAdresata(){
 }
 
 int AdresatMenager::pobierzIdNowegoAdresata(){
-    if (adresaci.empty() == true)
-        return 1;
-    else
-        return adresaci.back().pobierzId() + 1;
+    return plikZAdresatami.pobierzIdOstatniegoAdresata() + 1;
 }
 
 void AdresatMenager::wyswietlWszystkichAdresatow()
