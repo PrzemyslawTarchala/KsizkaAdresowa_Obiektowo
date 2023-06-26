@@ -35,7 +35,7 @@ string MetodyPomocnicze::pobierzLiczbe(string tekst, int pozycjaZnaku){
     while(isdigit(tekst[pozycjaZnaku]))
     {
         liczba += tekst[pozycjaZnaku];
-        pozycjaZnaku ++;
+        ++pozycjaZnaku;
     }
     return liczba;
 }

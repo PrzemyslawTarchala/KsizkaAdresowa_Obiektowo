@@ -87,7 +87,7 @@ Adresat PlikZAdresatami::pobierzDaneAdresata(string daneAdresataOddzielonePionow
     string pojedynczaDanaAdresata = "";
     int numerPojedynczejDanejAdresata = 1;
 
-    for (size_t pozycjaZnaku = 0; pozycjaZnaku < daneAdresataOddzielonePionowymiKreskami.length(); pozycjaZnaku++)
+    for (size_t pozycjaZnaku = 0; pozycjaZnaku < daneAdresataOddzielonePionowymiKreskami.length(); ++pozycjaZnaku)
     {
         if (daneAdresataOddzielonePionowymiKreskami[pozycjaZnaku] != '|')
         {
@@ -120,7 +120,7 @@ Adresat PlikZAdresatami::pobierzDaneAdresata(string daneAdresataOddzielonePionow
                 break;
             }
             pojedynczaDanaAdresata = "";
-            numerPojedynczejDanejAdresata++;
+            ++numerPojedynczejDanejAdresata;
         }
     }
     return adresat;
@@ -157,16 +157,9 @@ void PlikZAdresatami::ustawIdOstatniegoAdresata(){
         }
 
         getline(plikTekstowy,lastLine);                      // Read the current line
-        plikTekstowy.close();
+        plikTekstowy.close();                                // --> "wczytuje" ostatnia linie zamiast przechodzic przez caly plik od gory
     }
-
-    string liczba = "";
-    while(isdigit(lastLine[pozycjaZnaku]))                   //Rozwiazanie pozwala na "wczytanie" ostatniej linii zamiast przechodzic po calym pilku od "gory"
-    {
-        liczba += lastLine[pozycjaZnaku];
-        pozycjaZnaku ++;
-    }
-    idOstatniegoAdresata = MetodyPomocnicze::konwersjaStringNaInt(liczba);   //zwraca ID ostatniego uzytkownika
+    idOstatniegoAdresata = MetodyPomocnicze::konwersjaStringNaInt(MetodyPomocnicze::pobierzLiczbe(lastLine, pozycjaZnaku));   //zwraca ID ostatniego uzytkownika
 }
 
 //getter

@@ -37,7 +37,7 @@ int UzytkownikMenager::pobierzIdNowegoUzytkownika(){
 }
 
 bool UzytkownikMenager::czyIstniejeLogin(string login){
-    for (size_t i = 0; i < uzytkownicy.size(); i++){
+    for (size_t i = 0; i < uzytkownicy.size(); ++i){
         if (uzytkownicy[i].pobierzLogin() == login){
             cout << endl << "Istnieje uzytkownik o takim loginie." << endl;
             return true;
