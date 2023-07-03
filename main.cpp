@@ -14,6 +14,5 @@ int main()
     ksiazkaAdresowa.dodajAdresata();
     ksiazkaAdresowa.wyswietlWszystkichAdresatow();
     ksiazkaAdresowa.wylogowanieUzytkownika();
-
     return 0;
 }

@@ -39,3 +39,11 @@ string MetodyPomocnicze::pobierzLiczbe(string tekst, int pozycjaZnaku){
     }
     return liczba;
 }
+
+void MetodyPomocnicze::czyUzytkownikJestZalogowany(int idZalogowanegoUzytkownika){
+    if (idZalogowanegoUzytkownika == 0){
+        cout << "Wymagane zalogowanie." << endl << endl;
+        system ("pause");
+        exit(0);
+    }
+}

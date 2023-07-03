@@ -6,22 +6,17 @@ void AdresatMenager::dodajAdresata(){
 
     system("cls");
     cout << " >>> DODAWANIE NOWEGO ADRESATA <<<" << endl << endl;
-    if (idZalogowanegoUzytkownika != 0){
-        adresat = podajDaneNowegoAdresata();
-        adresaci.push_back(adresat);
-        plikZAdresatami.dopiszAdresataDoPliku(adresat);
-    }
-     else{
-        cout << "Wymagane zalogowanie\n" << endl;
-        system("pause");
-    }
+     MetodyPomocnicze::czyUzytkownikJestZalogowany(idZalogowanegoUzytkownika);
+    adresat = podajDaneNowegoAdresata();
+    adresaci.push_back(adresat);
+    plikZAdresatami.dopiszAdresataDoPliku(adresat);
 }
 
 Adresat AdresatMenager::podajDaneNowegoAdresata(){
 
     Adresat adresat;
 
-    adresat.ustawId(pobierzIdNowegoAdresata());
+    adresat.ustawId(plikZAdresatami.pobierzIdOstatniegoAdresata() + 1);
     adresat.ustawIdUzytkownika(idZalogowanegoUzytkownika);
 
     cout << "Podaj imie: ";
@@ -44,28 +39,17 @@ Adresat AdresatMenager::podajDaneNowegoAdresata(){
     return adresat;
 }
 
-int AdresatMenager::pobierzIdNowegoAdresata(){
-    return plikZAdresatami.pobierzIdOstatniegoAdresata() + 1;
-}
-
 void AdresatMenager::wyswietlWszystkichAdresatow()
 {
     system("cls");
-    cout << "-----ADRESACI-----" << endl;
+    cout << "-----ADRESACI-----" << endl << endl;
 
-    if (idZalogowanegoUzytkownika == 0){
-        cout << endl << "Wymagane zalogowanie." << endl << endl;
-        system ("pause");
-        exit(0);
-    }
-
+     MetodyPomocnicze::czyUzytkownikJestZalogowany(idZalogowanegoUzytkownika);
     if (!adresaci.empty())
     {
-        for (size_t i = 0; i < adresaci.size(); ++i)
-            if (adresaci[i].pobierzIdUzytkownika() == idZalogowanegoUzytkownika){
-                wyswietlDaneAdresata(adresaci[i]);
-            }
-        cout << endl;
+        for (const Adresat adresat : adresaci){
+            wyswietlDaneAdresata(adresat);
+        }
     }
     else
     {
@@ -75,12 +59,12 @@ void AdresatMenager::wyswietlWszystkichAdresatow()
 }
 
 void AdresatMenager::wyswietlDaneAdresata(Adresat adresat){
-    cout << endl << "Id:                 " << adresat.pobierzId() << endl;
+    cout << "Id:                 " << adresat.pobierzId() << endl;
     cout << "Imie:               " << adresat.pobierzImie() << endl;
     cout << "Nazwisko:           " << adresat.pobierzNazwisko() << endl;
     cout << "Numer telefonu:     " << adresat.pobierzNumerTelefonu() << endl;
     cout << "Email:              " << adresat.pobierzEmial() << endl;
-    cout << "Adres:              " << adresat.pobierzAdres() << endl;
+    cout << "Adres:              " << adresat.pobierzAdres() << endl << endl;
 }
 
 void AdresatMenager::wczytajAdresatowZalogowanegoUzytkownikaZPliku(){

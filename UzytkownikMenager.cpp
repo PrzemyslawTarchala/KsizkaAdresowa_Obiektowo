@@ -122,16 +122,11 @@ void UzytkownikMenager::wylogowanieUzytkownika(){
 
     system("cls");
     cout << "-----WYLOGOWANIE UZYTKOWNIKA-----" << endl << endl;
-    if (idZalogowanegoUzytkownika != 0) {
-        idZalogowanegoUzytkownika = 0;
-        cout << "Wylogowano pomyslnie." << endl << endl;
-        system("pause");
-    }
-    else{
-        cout << "Najpierw wypadaloby sie zalogowac :)" << endl << endl;
-        system("pause");
-    }
 
+    MetodyPomocnicze::czyUzytkownikJestZalogowany(idZalogowanegoUzytkownika);
+    idZalogowanegoUzytkownika = 0;
+    cout << "Wylogowano pomyslnie." << endl << endl;
+    system("pause");
 }
 
 void UzytkownikMenager::zmianaHaslaZalogowanegoUzytkownika(){
@@ -139,25 +134,20 @@ void UzytkownikMenager::zmianaHaslaZalogowanegoUzytkownika(){
     system ("cls");
     cout << "-----ZMIANA HASLA-----" << endl << endl;
     string noweHaslo = "";
+    MetodyPomocnicze::czyUzytkownikJestZalogowany(idZalogowanegoUzytkownika);
 
-    if (idZalogowanegoUzytkownika != 0){
-        cout << "Podaj nowe haslo: ";
-        noweHaslo = MetodyPomocnicze::wczytajLinie();
-        for (size_t i = 0; i < uzytkownicy.size(); ++i)
+    cout << "Podaj nowe haslo: ";
+    noweHaslo = MetodyPomocnicze::wczytajLinie();
+    for (size_t i = 0; i < uzytkownicy.size(); ++i)
+    {
+        if (uzytkownicy[i].pobierzId() == idZalogowanegoUzytkownika)
         {
-            if (uzytkownicy[i].pobierzId() == idZalogowanegoUzytkownika)
-            {
-                uzytkownicy[i].ustawHaslo(noweHaslo);
-                cout << "Haslo zostalo zmienione." << endl << endl;
-                system("pause");
-            }
+            uzytkownicy[i].ustawHaslo(noweHaslo);
+            cout << "Haslo zostalo zmienione." << endl << endl;
+            system("pause");
         }
-        plikZUzytkownikami.zapiszWszystkichUzytkownikowDoPliku(uzytkownicy);
     }
-    else{
-        cout << "Wymagane zalogowanie\n" << endl;
-        system("pause");
-    }
+    plikZUzytkownikami.zapiszWszystkichUzytkownikowDoPliku(uzytkownicy);
 }
 
 //Gettery i Settery
