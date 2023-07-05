@@ -1,12 +1,15 @@
 #include "AdresatMenager.h"
 
+int AdresatMenager::pobierzIdZalogowanegoUzytkownika(){
+    return ID_ZALOGOWANEGO_UZYTKOWNIKA;
+}
+
 void AdresatMenager::dodajAdresata(){
 
     Adresat adresat;
 
     system("cls");
     cout << " >>> DODAWANIE NOWEGO ADRESATA <<<" << endl << endl;
-     MetodyPomocnicze::czyUzytkownikJestZalogowany(idZalogowanegoUzytkownika);
     adresat = podajDaneNowegoAdresata();
     adresaci.push_back(adresat);
     plikZAdresatami.dopiszAdresataDoPliku(adresat);
@@ -17,7 +20,7 @@ Adresat AdresatMenager::podajDaneNowegoAdresata(){
     Adresat adresat;
 
     adresat.ustawId(plikZAdresatami.pobierzIdOstatniegoAdresata() + 1);
-    adresat.ustawIdUzytkownika(idZalogowanegoUzytkownika);
+    adresat.ustawIdUzytkownika(ID_ZALOGOWANEGO_UZYTKOWNIKA);
 
     cout << "Podaj imie: ";
     adresat.ustawImie(MetodyPomocnicze::wczytajLinie());
@@ -39,20 +42,19 @@ Adresat AdresatMenager::podajDaneNowegoAdresata(){
     return adresat;
 }
 
-void AdresatMenager::wyswietlWszystkichAdresatow()
-{
+void AdresatMenager::wyswietlWszystkichAdresatow(){
     system("cls");
     cout << "-----ADRESACI-----" << endl << endl;
 
-     MetodyPomocnicze::czyUzytkownikJestZalogowany(idZalogowanegoUzytkownika);
+
+    MetodyPomocnicze::czyUzytkownikJestZalogowany(ID_ZALOGOWANEGO_UZYTKOWNIKA); //ta metoda zostanie domyslnie usunieta
     if (!adresaci.empty())
     {
         for (const Adresat adresat : adresaci){
             wyswietlDaneAdresata(adresat);
         }
     }
-    else
-    {
+    else{
         cout << endl << "Ksiazka adresowa jest pusta." << endl << endl;
     }
     system("pause");
@@ -66,23 +68,3 @@ void AdresatMenager::wyswietlDaneAdresata(Adresat adresat){
     cout << "Email:              " << adresat.pobierzEmial() << endl;
     cout << "Adres:              " << adresat.pobierzAdres() << endl << endl;
 }
-
-void AdresatMenager::wczytajAdresatowZalogowanegoUzytkownikaZPliku(){
-    adresaci = plikZAdresatami.wczytajAdresatowZalogowanegoUzytkownikaZPliku(idZalogowanegoUzytkownika);
-}
-
-void AdresatMenager::wylogowanie(){
-    idZalogowanegoUzytkownika = 0;
-    adresaci.clear();
-}
-
-//gettery i settery
-
-int AdresatMenager::pobierzIdZalogowanegoUzytkownika(){
-    return idZalogowanegoUzytkownika;
-}
-void AdresatMenager::ustawIdZalogowanegoUzytkownika(int noweIdZalogowanegoUzytkownika){
-    idZalogowanegoUzytkownika = noweIdZalogowanegoUzytkownika;
-}
-
-

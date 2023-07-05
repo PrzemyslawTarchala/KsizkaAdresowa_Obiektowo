@@ -15,22 +15,21 @@ class UzytkownikMenager{
     int idZalogowanegoUzytkownika;
 
     Uzytkownik podajDaneNowegoUzytkownika();
-    int pobierzIdNowegoUzytkownika();
     bool czyIstniejeLogin(string login);
 
 public:
     UzytkownikMenager(string nazwaPlikuZUzytkownikami) : plikZUzytkownikami(nazwaPlikuZUzytkownikami){
+        uzytkownicy = plikZUzytkownikami.wczytajUzytkownikowZPliku();
         idZalogowanegoUzytkownika = 0;
     };
+    int pobierzIdZalogowaneUzytkownika();
+
     void rejestracjaUzytkownika();
     void wypiszWszystkichUzytkownikow();
-    void wczytajUzytkownikowZPliku();
     void logowanieUzytkownika();
     void wylogowanieUzytkownika();
     void zmianaHaslaZalogowanegoUzytkownika();
-
-    //Gettery i Settery
-    int pobierzIdZalogowaneUzytkownika();
-    void ustawIdZalogowanegoUzytkownika(int noweId);
+    bool czyUzytkownikJestZalogowany();
+    int pobierzIdNowegoUzytkownika();
 };
 #endif

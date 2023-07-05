@@ -1,5 +1,9 @@
 #include "UzytkownikMenager.h"
 
+int UzytkownikMenager::pobierzIdZalogowaneUzytkownika(){
+    return idZalogowanegoUzytkownika;
+}
+
 void UzytkownikMenager::rejestracjaUzytkownika(){
 
     cout << "-----REJESTRACJA-----" << endl << endl;
@@ -64,10 +68,6 @@ void UzytkownikMenager::wypiszWszystkichUzytkownikow(){
     }
 }
 
-void UzytkownikMenager::wczytajUzytkownikowZPliku(){
-    uzytkownicy = plikZUzytkownikami.wczytajUzytkownikowZPliku();
-}
-
 void UzytkownikMenager::logowanieUzytkownika(){
 
     if (idZalogowanegoUzytkownika == 0){
@@ -123,7 +123,6 @@ void UzytkownikMenager::wylogowanieUzytkownika(){
     system("cls");
     cout << "-----WYLOGOWANIE UZYTKOWNIKA-----" << endl << endl;
 
-    MetodyPomocnicze::czyUzytkownikJestZalogowany(idZalogowanegoUzytkownika);
     idZalogowanegoUzytkownika = 0;
     cout << "Wylogowano pomyslnie." << endl << endl;
     system("pause");
@@ -134,7 +133,6 @@ void UzytkownikMenager::zmianaHaslaZalogowanegoUzytkownika(){
     system ("cls");
     cout << "-----ZMIANA HASLA-----" << endl << endl;
     string noweHaslo = "";
-    MetodyPomocnicze::czyUzytkownikJestZalogowany(idZalogowanegoUzytkownika);
 
     cout << "Podaj nowe haslo: ";
     noweHaslo = MetodyPomocnicze::wczytajLinie();
@@ -150,15 +148,13 @@ void UzytkownikMenager::zmianaHaslaZalogowanegoUzytkownika(){
     plikZUzytkownikami.zapiszWszystkichUzytkownikowDoPliku(uzytkownicy);
 }
 
-//Gettery i Settery
-
-int UzytkownikMenager::pobierzIdZalogowaneUzytkownika(){
-    return idZalogowanegoUzytkownika;
+bool UzytkownikMenager::czyUzytkownikJestZalogowany(){
+    if (idZalogowanegoUzytkownika > 0){
+        return true;
+    }
+    else{
+        cout << endl << "Wymagane logowanie" << endl;
+        system ("pause");
+        return false;
+    }
 }
-
-void UzytkownikMenager::ustawIdZalogowanegoUzytkownika(int noweId){
-    idZalogowanegoUzytkownika = noweId;
-}
-
-
-

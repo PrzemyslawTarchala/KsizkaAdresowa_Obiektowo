@@ -1,5 +1,9 @@
 #include "PlikZAdresatami.h"
 
+int PlikZAdresatami::pobierzIdOstatniegoAdresata(){
+    return idOstatniegoAdresata;
+}
+
 void PlikZAdresatami::dopiszAdresataDoPliku(Adresat adresat){
 
     string liniaZDanymiAdresata = "";
@@ -125,10 +129,4 @@ Adresat PlikZAdresatami::pobierzDaneAdresata(string daneAdresataOddzielonePionow
         }
     }
     return adresat;
-}
-
-//getter
-
-int PlikZAdresatami::pobierzIdOstatniegoAdresata(){
-    return idOstatniegoAdresata;
 }
