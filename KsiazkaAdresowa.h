@@ -24,6 +24,8 @@ public:
         adresatMenager = NULL;
     }
 
+    void mainMenu();
+/*
     void rejestracjaUzytkownika();
     void wypiszWszystkichUzytkownikow();
     void logowanieUzytkownika();
@@ -31,6 +33,9 @@ public:
     void zmianaHaslaZalogowanegoUZytkownika();
     void dodajAdresata();
     void wyswietlWszystkichAdresatow();
+    void usunAdresata();
+    void edytujAdresata();
+*/
 };
 
 #endif

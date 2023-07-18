@@ -32,13 +32,13 @@ public:
     void ustawNumerTelefonu(string nowyNumerTelefonu);
     void ustawEmail(string nowyEmail);
     void ustawAdres(string nowyAdres);
-    int pobierzId();
-    int pobierzIdUzytkownika();
-    string pobierzImie();
-    string pobierzNazwisko();
-    string pobierzNumerTelefonu();
-    string pobierzEmial();
-    string pobierzAdres();
+    int pobierzId() const;
+    int pobierzIdUzytkownika() const;
+    string pobierzImie() const;
+    string pobierzNazwisko() const;
+    string pobierzNumerTelefonu() const;
+    string pobierzEmial() const;
+    string pobierzAdres() const;
 };
 
 #endif

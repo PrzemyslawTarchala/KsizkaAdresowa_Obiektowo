@@ -12,7 +12,7 @@ string MetodyPomocnicze::konwerjsaIntNaString(int liczba){
     string str = ss.str();
     return str;
 }
-
+/*
 bool MetodyPomocnicze::czyPlikJestPusty(fstream &plikTekstowy){
 
     plikTekstowy.seekg(0, ios::end);
@@ -20,7 +20,7 @@ bool MetodyPomocnicze::czyPlikJestPusty(fstream &plikTekstowy){
         return true;
     else
         return false;
-}
+}*/
 
 int MetodyPomocnicze::konwersjaStringNaInt(string liczba){
 
@@ -46,4 +46,40 @@ void MetodyPomocnicze::czyUzytkownikJestZalogowany(int idZalogowanegoUzytkownika
         system ("pause");
         exit(0);
     }
+}
+
+int MetodyPomocnicze::wczytajLiczbeCalkowita(){
+    string wejscie = "";
+    int liczba = 0;
+
+    while (true)
+    {
+        getline(cin, wejscie);
+        stringstream myStream(wejscie);
+        if (myStream >> liczba)
+            break;
+        cout << "To nie jest liczba. Wpisz ponownie. " << endl;
+    }
+    return liczba;
+}
+
+char MetodyPomocnicze::wczytajZnak(){
+    string wejscie = "";
+    char znak  = {0};
+    while (true)
+    {
+        getline(cin, wejscie);
+        if (wejscie.length() == 1)
+        {
+            znak = wejscie[0];
+            break;
+        }
+        cout << "To nie jest pojedynczy znak. Wpisz ponownie." << endl;
+    }
+    return znak;
+}
+
+string MetodyPomocnicze::przeksztalcNaDuzeLitery(string napis){
+    transform(napis.begin(), napis.end(), napis.begin(), :: toupper);
+    return napis;
 }

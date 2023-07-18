@@ -1,28 +1,28 @@
 #include "Adresat.h"
 
-int Adresat::pobierzId(){
+int Adresat::pobierzId() const {
     return id;
 }
-int Adresat::pobierzIdUzytkownika(){
+int Adresat::pobierzIdUzytkownika() const{
     return idUzytkownika;
 }
-string Adresat::pobierzImie(){
+string Adresat::pobierzImie() const{
     return imie;
 }
-string Adresat::pobierzNazwisko(){
+string Adresat::pobierzNazwisko() const{
     return nazwisko;
 }
-string Adresat::pobierzNumerTelefonu(){
+string Adresat::pobierzNumerTelefonu() const{
     return numerTelefonu;
 }
-string Adresat::pobierzEmial(){
+string Adresat::pobierzEmial() const{
     return email;
 }
-string Adresat::pobierzAdres(){
+string Adresat::pobierzAdres() const{
     return adres;
 }
 
-void Adresat::ustawId(int id){
+void Adresat::ustawId(int id) {
     this -> id = id;
 }
 void Adresat::ustawIdUzytkownika(int idUzytkownika){

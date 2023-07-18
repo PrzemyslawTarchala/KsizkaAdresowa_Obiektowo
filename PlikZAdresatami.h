@@ -7,13 +7,14 @@
 
 #include "Adresat.h"
 #include "MetodyPomocnicze.h"
+#include "PlikTekstowy.h"
+
 
 using namespace std;
 
-class PlikZAdresatami{
+class PlikZAdresatami : public PlikTekstowy{
 
     int idOstatniegoAdresata;
-    string NAZWA_PLIKU_Z_ADRESATAMI;
 
     Adresat pobierzDaneAdresata(string daneAdresataOddzielonePionowymiKreskami);
     int pobierzIdUzytkownikaZDanychOddzielonychPionowymiKreskami(string daneJednegoAdresataOddzielonePionowymiKreskami);
@@ -22,11 +23,14 @@ class PlikZAdresatami{
     string pobierzLiczbe(string tekst, int pozycjaZnaku);
 
 public:
-
-    PlikZAdresatami(string nazwaPlikuZAdresatami) : NAZWA_PLIKU_Z_ADRESATAMI(nazwaPlikuZAdresatami){};
+    PlikZAdresatami(string nazwaPlikuZAdresatami) : PlikTekstowy(nazwaPlikuZAdresatami){
+        ustawNazwePlikuTymczasowego("AdresaciTemp.txt");
+    };
     int pobierzIdOstatniegoAdresata();
 
     void dopiszAdresataDoPliku(Adresat adresat);
     vector <Adresat> wczytajAdresatowZalogowanegoUzytkownikaZPliku(int idZalogowanegoUzytkownika);
+    void usunAdresataWPliku(vector <Adresat> adresaci, int idUsuwanegoAdresata);
+    void edytujAdresataWPliku(int idEdytowanegoAdresata, string daneAdresataDoZmiany);
 };
 #endif

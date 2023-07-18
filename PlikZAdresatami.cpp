@@ -8,14 +8,14 @@ void PlikZAdresatami::dopiszAdresataDoPliku(Adresat adresat){
 
     string liniaZDanymiAdresata = "";
     fstream plikTekstowy;
-    plikTekstowy.open(NAZWA_PLIKU_Z_ADRESATAMI.c_str(), ios::out | ios::app);
+    plikTekstowy.open(pobierzNazwePliku().c_str(), ios::out | ios::app);
 
     if (plikTekstowy.good())
     {
         liniaZDanymiAdresata = zamienDaneAdresataNaLinieZDanymiOddzielonymiPionowymiKreskami(adresat);
         ++ idOstatniegoAdresata;
 
-        if (MetodyPomocnicze::czyPlikJestPusty(plikTekstowy)){
+        if (czyPlikJestPusty(pobierzNazwePliku())){
             plikTekstowy << liniaZDanymiAdresata;
         }
         else{
@@ -54,7 +54,7 @@ vector <Adresat> PlikZAdresatami::wczytajAdresatowZalogowanegoUzytkownikaZPliku(
     string daneJednegoAdresataOddzielonePionowymiKreskami = "";
     string daneOstaniegoAdresataWPliku = "";
     fstream plikTekstowy;
-    plikTekstowy.open(NAZWA_PLIKU_Z_ADRESATAMI.c_str(), ios::in);
+    plikTekstowy.open(pobierzNazwePliku().c_str(), ios::in);
 
     if (plikTekstowy.good())
     {
@@ -129,4 +129,87 @@ Adresat PlikZAdresatami::pobierzDaneAdresata(string daneAdresataOddzielonePionow
         }
     }
     return adresat;
+}
+
+void PlikZAdresatami::usunAdresataWPliku(vector <Adresat> adresaci, int idUsuwanegoAdresata){
+    bool tempPlikPusty = true;
+    int pozycjaZnaku, tempId;
+    string line;
+    string tempLine = "";
+
+    fstream plikTekstowy, tempPlikTekstowyt;
+    plikTekstowy.open(pobierzNazwePliku().c_str(), ios::in);
+    tempPlikTekstowyt.open(pobierzNazwePlikuTymczasowego().c_str(), ios::out | ios::app);
+
+    if(plikTekstowy.good()){
+        while (getline(plikTekstowy, line)){
+            pozycjaZnaku = 0;
+            tempLine = "";
+            while (line[pozycjaZnaku] != '|'){
+                tempLine += line[pozycjaZnaku];
+                ++ pozycjaZnaku;
+            }
+            tempId = stoi(tempLine);
+            if (tempId != idUsuwanegoAdresata){
+                if(tempPlikPusty == true){
+                    tempPlikTekstowyt << line;
+                }
+                else{
+                    tempPlikTekstowyt << endl << line;
+                }
+            }
+            else{
+                continue;
+            }
+            tempPlikPusty = false;
+        }
+    }
+    cout << "\nAdresat zostal usuniety" << endl << endl;
+    plikTekstowy.close();
+    tempPlikTekstowyt.close();
+    remove(pobierzNazwePliku().c_str());
+    rename(pobierzNazwePlikuTymczasowego().c_str(),pobierzNazwePliku().c_str());
+}
+
+void PlikZAdresatami::edytujAdresataWPliku(int idEdytowanegoAdresata, string daneAdresataDoZmiany){
+
+    bool tempPlikPusty = true;
+    int idAdresataDoZaminy;
+    string linia;
+    fstream plikTekstowy, tempPlikTekstowyt;
+    plikTekstowy.open(pobierzNazwePliku().c_str(), ios::in);
+    tempPlikTekstowyt.open(pobierzNazwePlikuTymczasowego().c_str(), ios::out | ios::app);
+
+    if(plikTekstowy.good()){
+        while(getline(plikTekstowy, linia)){
+            idAdresataDoZaminy = MetodyPomocnicze::konwersjaStringNaInt(MetodyPomocnicze::pobierzLiczbe(linia,0));
+            if(tempPlikPusty == true){
+                if (idAdresataDoZaminy == idEdytowanegoAdresata){
+                    tempPlikTekstowyt << daneAdresataDoZmiany;
+                }
+                else{
+                    tempPlikTekstowyt << linia;
+                }
+            }
+            else{
+                if (idAdresataDoZaminy == idEdytowanegoAdresata){
+                    tempPlikTekstowyt << endl << daneAdresataDoZmiany;
+                }
+                else{
+                    tempPlikTekstowyt << endl << linia;
+                }
+            }
+            tempPlikPusty = false;
+        }
+        cout << "\nAdresat zostal Edytowany" << endl << endl;
+        system ("pause");
+    }
+    else{
+        cout << "Nie udalo sie otworzyc pliku\n\n";
+        system ("pause");
+    }
+    plikTekstowy.close();
+    tempPlikTekstowyt.close();
+    remove(pobierzNazwePliku().c_str());
+    rename(pobierzNazwePlikuTymczasowego().c_str(), pobierzNazwePliku().c_str());
 }

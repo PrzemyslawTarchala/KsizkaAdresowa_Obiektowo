@@ -5,7 +5,7 @@ int UzytkownikMenager::pobierzIdZalogowaneUzytkownika(){
 }
 
 void UzytkownikMenager::rejestracjaUzytkownika(){
-
+    system("cls");
     cout << "-----REJESTRACJA-----" << endl << endl;
 
     Uzytkownik uzytkownik = podajDaneNowegoUzytkownika();
@@ -21,8 +21,7 @@ Uzytkownik UzytkownikMenager::podajDaneNowegoUzytkownika(){
     Uzytkownik uzytkownik;
     uzytkownik.ustawId(pobierzIdNowegoUzytkownika());
 
-    do
-    {
+    do{
         cout << "Podaj login: ";
         uzytkownik.ustawLogin(MetodyPomocnicze::wczytajLinie());
     } while (czyIstniejeLogin(uzytkownik.pobierzLogin()));
@@ -80,23 +79,19 @@ void UzytkownikMenager::logowanieUzytkownika(){
         if (uzytkownicy.empty()){
             cout << "Brak uzytkownikow." << endl << endl;
             system ("pause");
-            exit(0);
+            return;
         }
 
         cout << "Podaj login: ";
         login = MetodyPomocnicze::wczytajLinie();
 
-        for (size_t i = 0; i < uzytkownicy.size(); ++i)
-        {
-            if (uzytkownicy[i].pobierzLogin() == login)
-            {
-                for (int iloscProb = 3; iloscProb > 0; iloscProb--)
-                {
+        for (size_t i = 0; i < uzytkownicy.size(); ++i){
+            if (uzytkownicy[i].pobierzLogin() == login){
+                for (int iloscProb = 3; iloscProb > 0; iloscProb--){
                     cout << "Podaj haslo. Pozostalo prob: " << iloscProb << ": ";
                     haslo = MetodyPomocnicze::wczytajLinie();
 
-                    if (uzytkownicy[i].pobierzHaslo() == haslo)
-                    {
+                    if (uzytkownicy[i].pobierzHaslo() == haslo){
                         cout << endl << "Zalogowales sie." << endl << endl;
                         system("pause");
                         idZalogowanegoUzytkownika = uzytkownicy[i].pobierzId();
@@ -136,10 +131,8 @@ void UzytkownikMenager::zmianaHaslaZalogowanegoUzytkownika(){
 
     cout << "Podaj nowe haslo: ";
     noweHaslo = MetodyPomocnicze::wczytajLinie();
-    for (size_t i = 0; i < uzytkownicy.size(); ++i)
-    {
-        if (uzytkownicy[i].pobierzId() == idZalogowanegoUzytkownika)
-        {
+    for (size_t i = 0; i < uzytkownicy.size(); ++i){
+        if (uzytkownicy[i].pobierzId() == idZalogowanegoUzytkownika){
             uzytkownicy[i].ustawHaslo(noweHaslo);
             cout << "Haslo zostalo zmienione." << endl << endl;
             system("pause");
@@ -153,8 +146,11 @@ bool UzytkownikMenager::czyUzytkownikJestZalogowany(){
         return true;
     }
     else{
-        cout << endl << "Wymagane logowanie" << endl;
-        system ("pause");
-        return false;
+        if (uzytkownicy.size() != 0){
+            cout << endl << "Wymagane logowanie" << endl;
+            system ("pause");
+            return false;
+        }
+        else return false;
     }
 }
