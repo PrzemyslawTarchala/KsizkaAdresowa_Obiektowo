@@ -18,7 +18,3 @@ string PlikTekstowy::pobierzNazwePliku(){
 string PlikTekstowy::pobierzNazwePlikuTymczasowego(){
     return NAZWA_PLIKU_TYMCZASOWEGO;
 }
-
-void PlikTekstowy::ustawNazwePlikuTymczasowego(string nowaNazwaPlikuTymczasowego){
-    this -> NAZWA_PLIKU_TYMCZASOWEGO = nowaNazwaPlikuTymczasowego;
-}

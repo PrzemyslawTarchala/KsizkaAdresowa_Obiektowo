@@ -23,9 +23,7 @@ class PlikZAdresatami : public PlikTekstowy{
     string pobierzLiczbe(string tekst, int pozycjaZnaku);
 
 public:
-    PlikZAdresatami(string nazwaPlikuZAdresatami) : PlikTekstowy(nazwaPlikuZAdresatami){
-        ustawNazwePlikuTymczasowego("AdresaciTemp.txt");
-    };
+    PlikZAdresatami(string nazwaPlikuZAdresatami) : PlikTekstowy(nazwaPlikuZAdresatami){};
     int pobierzIdOstatniegoAdresata();
 
     void dopiszAdresataDoPliku(Adresat adresat);

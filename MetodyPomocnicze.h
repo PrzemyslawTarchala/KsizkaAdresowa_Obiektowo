@@ -13,7 +13,6 @@ class MetodyPomocnicze{
 public:
     static string konwerjsaIntNaString(int liczba);
     static string wczytajLinie();
-    static bool czyPlikJestPusty(fstream &plikTekstowy);
     static int konwersjaStringNaInt(string liczba);
     static string pobierzLiczbe(string tekst, int pozycjaZnaku);
     static void czyUzytkownikJestZalogowany(int idZalogowanegoUzytkownika);

@@ -8,12 +8,11 @@ using namespace std;
 
 class PlikTekstowy{
     const string NAZWA_PLIKU;
-    const string NAZWA_PLIKU_TYMCZASOWEGO; //Dodane pod klase PlikZAdsresatami
+    const string NAZWA_PLIKU_TYMCZASOWEGO = "temp.txt";
 public:
     PlikTekstowy(string nazwaPlikuZAdresatami) : NAZWA_PLIKU(nazwaPlikuZAdresatami){};
     string pobierzNazwePliku();
     string pobierzNazwePlikuTymczasowego();
-    void ustawNazwePlikuTymczasowego(string nowaNazwaPlikuTymczasowego);
     bool czyPlikJestPusty(string nazwaPliku);
 };
 

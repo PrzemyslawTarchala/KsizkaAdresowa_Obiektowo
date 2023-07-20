@@ -12,15 +12,6 @@ string MetodyPomocnicze::konwerjsaIntNaString(int liczba){
     string str = ss.str();
     return str;
 }
-/*
-bool MetodyPomocnicze::czyPlikJestPusty(fstream &plikTekstowy){
-
-    plikTekstowy.seekg(0, ios::end);
-    if (plikTekstowy.tellg() == 0)
-        return true;
-    else
-        return false;
-}*/
 
 int MetodyPomocnicze::konwersjaStringNaInt(string liczba){
 
@@ -74,7 +65,7 @@ char MetodyPomocnicze::wczytajZnak(){
             znak = wejscie[0];
             break;
         }
-        cout << "To nie jest pojedynczy znak. Wpisz ponownie." << endl;
+        cout << "\nTo nie jest pojedynczy znak. Wpisz ponownie: ";
     }
     return znak;
 }

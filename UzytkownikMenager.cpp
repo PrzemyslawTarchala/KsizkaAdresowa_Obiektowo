@@ -17,18 +17,23 @@ void UzytkownikMenager::rejestracjaUzytkownika(){
 }
 
 Uzytkownik UzytkownikMenager::podajDaneNowegoUzytkownika(){
-
     Uzytkownik uzytkownik;
     uzytkownik.ustawId(pobierzIdNowegoUzytkownika());
 
     do{
         cout << "Podaj login: ";
         uzytkownik.ustawLogin(MetodyPomocnicze::wczytajLinie());
-    } while (czyIstniejeLogin(uzytkownik.pobierzLogin()));
-
-    cout << "Podaj haslo: ";
-    uzytkownik.ustawHaslo(MetodyPomocnicze::wczytajLinie());
-
+        if(uzytkownik.pobierzLogin() == ""){
+            cout << "\nMusisz podac Login.\n\n";
+        }
+    }while (czyIstniejeLogin(uzytkownik.pobierzLogin()) || uzytkownik.pobierzLogin() == "");
+    do{
+        cout << "Podaj haslo: ";
+        uzytkownik.ustawHaslo(MetodyPomocnicze::wczytajLinie());
+        if(uzytkownik.pobierzHaslo() == ""){
+            cout << "\nMusisz podac haslo.\n\n";
+        }
+    }while(uzytkownik.pobierzHaslo() == "");
     return uzytkownik;
 }
 
@@ -42,7 +47,7 @@ int UzytkownikMenager::pobierzIdNowegoUzytkownika(){
 bool UzytkownikMenager::czyIstniejeLogin(string login){
     for (size_t i = 0; i < uzytkownicy.size(); ++i){
         if (uzytkownicy[i].pobierzLogin() == login){
-            cout << endl << "Istnieje uzytkownik o takim loginie." << endl;
+            cout << endl << "Istnieje uzytkownik o takim loginie.\n" << endl;
             return true;
         }
     }
@@ -103,7 +108,7 @@ void UzytkownikMenager::logowanieUzytkownika(){
                 return;
             }
         }
-        cout << "Nie ma uzytkownika z takim loginem" << endl << endl;
+        cout << "\nNie ma uzytkownika z takim loginem" << endl << endl;
         system("pause");
         return;
     }
@@ -147,8 +152,6 @@ bool UzytkownikMenager::czyUzytkownikJestZalogowany(){
     }
     else{
         if (uzytkownicy.size() != 0){
-            cout << endl << "Wymagane logowanie" << endl;
-            system ("pause");
             return false;
         }
         else return false;

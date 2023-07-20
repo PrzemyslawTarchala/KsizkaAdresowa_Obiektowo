@@ -15,12 +15,12 @@ class AdresatMenager{
     vector <Adresat> adresaci;
 
     Adresat podajDaneNowegoAdresata();
-    void wyswietlDaneAdresata(Adresat adresat);
+    void wyswietlDaneAdresata(const Adresat &adresat);
 
 public:
     AdresatMenager(string nazwaPlikuZAdresatami, int idZalogowanegoUzytkownika)
         : plikZAdresatami(nazwaPlikuZAdresatami), ID_ZALOGOWANEGO_UZYTKOWNIKA(idZalogowanegoUzytkownika){
-            adresaci = plikZAdresatami.wczytajAdresatowZalogowanegoUzytkownikaZPliku(ID_ZALOGOWANEGO_UZYTKOWNIKA);
+        adresaci = plikZAdresatami.wczytajAdresatowZalogowanegoUzytkownikaZPliku(ID_ZALOGOWANEGO_UZYTKOWNIKA);
     };
     int pobierzIdZalogowanegoUzytkownika();
 
