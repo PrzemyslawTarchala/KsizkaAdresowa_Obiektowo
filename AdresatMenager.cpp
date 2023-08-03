@@ -78,7 +78,7 @@ void AdresatMenager::usunAdresata(){
             if (itr -> pobierzId() == idUsuwanegoAdresata){
                 cout << "Czy na pewno chcesz usunac Adresata? t/n -> ";
                 if(MetodyPomocnicze::wczytajZnak() == 't'){
-                    plikZAdresatami.usunAdresataWPliku(adresaci, idUsuwanegoAdresata);
+                    plikZAdresatami.usunAdresataWPliku(idUsuwanegoAdresata);
                     adresaci.erase(itr);
                     czyUsunietoAdresata = true;
                     system("pause");
@@ -152,8 +152,7 @@ void AdresatMenager::edytujAdresata(){
                         cout << "Nieprawidlowy wybor!\n";
                         system("pause");
                 }
-                daneAdresataDoZmiany = MetodyPomocnicze::konwerjsaIntNaString(adresat.pobierzId()) + "|" +  MetodyPomocnicze::konwerjsaIntNaString(adresat.pobierzIdUzytkownika()) + "|" + adresat.pobierzImie() + "|" + adresat.pobierzNazwisko() + "|" + adresat.pobierzNumerTelefonu() + "|" + adresat.pobierzEmial() + "|" + adresat.pobierzAdres() + "|";
-                plikZAdresatami.edytujAdresataWPliku(idEdytowanegoAdresata, daneAdresataDoZmiany);
+                plikZAdresatami.edytujAdresataWPliku(idEdytowanegoAdresata, adresat);
                 czyEdytowanoAdresata = true;
             }
         }

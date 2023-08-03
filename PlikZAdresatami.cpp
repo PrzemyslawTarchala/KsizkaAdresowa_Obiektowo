@@ -80,8 +80,7 @@ int PlikZAdresatami::pobierzIdUzytkownikaZDanychOddzielonychPionowymiKreskami(st
     return idUzytkownika;
 }
 
-int PlikZAdresatami::pobierzIdAdresataZDanychOddzielonychPionowymiKreskami(string daneJednegoAdresataOddzielonePionowymiKreskami)
-{
+int PlikZAdresatami::pobierzIdAdresataZDanychOddzielonychPionowymiKreskami(string daneJednegoAdresataOddzielonePionowymiKreskami){
     int pozycjaRozpoczeciaIdAdresata = 0;
     int idAdresata = MetodyPomocnicze::konwersjaStringNaInt(MetodyPomocnicze::pobierzLiczbe(daneJednegoAdresataOddzielonePionowymiKreskami, pozycjaRozpoczeciaIdAdresata));
     return idAdresata;
@@ -131,7 +130,7 @@ Adresat PlikZAdresatami::pobierzDaneAdresata(string daneAdresataOddzielonePionow
     return adresat;
 }
 
-void PlikZAdresatami::usunAdresataWPliku(vector <Adresat> adresaci, int idUsuwanegoAdresata){
+void PlikZAdresatami::usunAdresataWPliku(int idUsuwanegoAdresata){
     bool tempPlikPusty = true;
     int pozycjaZnaku, tempId;
     string line;
@@ -171,7 +170,7 @@ void PlikZAdresatami::usunAdresataWPliku(vector <Adresat> adresaci, int idUsuwan
     rename(pobierzNazwePlikuTymczasowego().c_str(),pobierzNazwePliku().c_str());
 }
 
-void PlikZAdresatami::edytujAdresataWPliku(int idEdytowanegoAdresata, string daneAdresataDoZmiany){
+void PlikZAdresatami::edytujAdresataWPliku(int idEdytowanegoAdresata, Adresat adresat){
 
     bool tempPlikPusty = true;
     int idAdresataDoZaminy;
@@ -179,6 +178,7 @@ void PlikZAdresatami::edytujAdresataWPliku(int idEdytowanegoAdresata, string dan
     fstream plikTekstowy, tempPlikTekstowyt;
     plikTekstowy.open(pobierzNazwePliku().c_str(), ios::in);
     tempPlikTekstowyt.open(pobierzNazwePlikuTymczasowego().c_str(), ios::out | ios::app);
+    string daneAdresataDoZmiany = zamienDaneAdresataNaLinieZDanymiOddzielonymiPionowymiKreskami(adresat);
 
     if(plikTekstowy.good()){
         while(getline(plikTekstowy, linia)){

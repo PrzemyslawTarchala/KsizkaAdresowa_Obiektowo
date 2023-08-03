@@ -61,7 +61,7 @@ int main(){
                     break;
                 case '8': ksiazkaAdresowa.zmianaHaslaZalogowanegoUZytkownika();
                     break;
-                case '9':   ksiazkaAdresowa.wylogowanieUzytkownika();
+                case '9': ksiazkaAdresowa.wylogowanieUzytkownika();
                     break;
                 default: cout << "Nieprawidlowy wybor!\n"; system ("pause");
             }
